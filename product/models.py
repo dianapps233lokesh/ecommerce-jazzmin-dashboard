@@ -5,6 +5,8 @@ class Product(models.Model):
     brand=models.ForeignKey('brand.Brand',on_delete=models.CASCADE)
     price=models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.product_name
 
 
 class ProductVariant(models.Model):
@@ -13,3 +15,6 @@ class ProductVariant(models.Model):
     color=models.CharField(max_length=200,null=True)
     size=models.IntegerField(blank=True)
     quantity=models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.product.product_name}    --      {self.color}    --      {self.size}"
