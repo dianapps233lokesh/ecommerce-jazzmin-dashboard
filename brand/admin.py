@@ -1,3 +1,6 @@
 from django.contrib import admin
+from ecomm.admin import admin_site
+from .models import Brand,CustomUser
 
-# Register your models here.
+
+admin_site.register(Brand)
