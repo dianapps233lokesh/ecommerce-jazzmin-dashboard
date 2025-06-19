@@ -13,7 +13,7 @@ class ProductVariant(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE, null=True, blank=True)
     desc=models.CharField(max_length=200, null=True, blank=True)
     color=models.CharField(max_length=200,null=True)
-    size=models.IntegerField(blank=True)
+    size=models.IntegerField(blank=True,null=True)
     quantity=models.IntegerField(default=0)
 
     def __str__(self):

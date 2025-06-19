@@ -9,6 +9,6 @@ class Brand(models.Model):
         return self.name
 
 class CustomUser(AbstractUser):
-    brand=models.ForeignKey(Brand,null=True, blank=True, on_delete=models.SET_NULL)
+    brand=models.ForeignKey(Brand,null=True, on_delete=models.SET_NULL)
 
     
