@@ -2,11 +2,14 @@ from django.db import models
 
 class Product(models.Model):
     product_name=models.CharField(max_length=200)
-    brand=models.CharField(max_length=100)
+    brand=models.ForeignKey('brand.Brand',on_delete=models.CASCADE)
+    price=models.IntegerField(default=0)
 
 
 
 class ProductVariant(models.Model):
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
-    desc=models.CharField(max_length=200)
-    color=
+    product=models.ForeignKey(Product,on_delete=models.CASCADE, null=True, blank=True)
+    desc=models.CharField(max_length=200, null=True, blank=True)
+    color=models.CharField(max_length=200,null=True)
+    size=models.IntegerField(blank=True)
+    quantity=models.IntegerField(default=0)
