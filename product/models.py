@@ -11,6 +11,7 @@ class Product(models.Model):
 
 class ProductVariant(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE, null=True, blank=True)
+    # brand=models.ForeignKey('brand.Brand',on_delete=models.CASCADE)
     desc=models.CharField(max_length=200, null=True, blank=True)
     color=models.CharField(max_length=200,null=True)
     size=models.IntegerField(blank=True,null=True)

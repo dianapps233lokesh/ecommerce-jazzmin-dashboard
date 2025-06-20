@@ -36,6 +36,14 @@ admin_site.register(Product,ProductAdmin)
 class ProductVariantAdmin(admin.ModelAdmin):
     list_display=['product','desc','color','size','quantity']
 
+    # def get_queryset(self,request):
+    #     qs=super().get_queryset(request)
+    #     # print(qs)
+
+    #     if request.user.is_superuser:
+    #         return qs
+    #     return qs.filter(brand=request.user.brand)
+
 
 
 admin_site.register(ProductVariant,ProductVariantAdmin)
