@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Product,ProductVariant
 from ecomm.admin import admin_site
 from django.http import HttpResponse
-import datetime
 import csv
 
 
