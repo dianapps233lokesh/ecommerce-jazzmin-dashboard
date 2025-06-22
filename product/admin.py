@@ -42,7 +42,7 @@ class ProductAdmin(admin.ModelAdmin):
     
     def get_queryset(self,request):
         qs=super().get_queryset(request)
-        print(qs)
+        # print(qs)
 
         if request.user.is_superuser:
             return qs
