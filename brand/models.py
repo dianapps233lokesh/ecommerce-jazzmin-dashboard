@@ -11,4 +11,5 @@ class Brand(models.Model):
 class CustomUser(AbstractUser):
     brand=models.ForeignKey(Brand,null=True, on_delete=models.SET_NULL)
 
+
     
