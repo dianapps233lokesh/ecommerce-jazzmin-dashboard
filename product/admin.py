@@ -56,6 +56,9 @@ class ProductAdmin(admin.ModelAdmin):
             if 'brand' in form.base_fields:
                 form.base_fields['brand'].disabled = True
                 form.base_fields['brand'].initial = request.user.brand
+            if 'category' in form.base_fields:
+                form.base_fields['category'].disabled = True
+                form.base_fields['category'].initial = request.user.brand
         return form
     
     
