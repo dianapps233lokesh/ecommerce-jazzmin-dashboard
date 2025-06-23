@@ -8,8 +8,16 @@ class Brand(models.Model):
     def __str__(self):
         return self.name
 
+class Category(models.Model):
+    brand=models.ForeignKey(Brand,on_delete=models.CASCADE,null=True)
+    name=models.CharField(max_length=300)
+    
+
+    def __str__(self):
+        return f"{self.name}"
+
 class CustomUser(AbstractUser):
-    brand=models.ForeignKey(Brand,null=True, on_delete=models.SET_NULL)
+    brand=models.ForeignKey(Brand,null=True,on_delete=models.SET_NULL)
 
 
     

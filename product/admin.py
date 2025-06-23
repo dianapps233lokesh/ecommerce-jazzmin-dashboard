@@ -5,6 +5,7 @@ from django.http import HttpResponse
 import csv
 
 
+
 def export_to_csv(modeladmin,request, queryset):
     """Export selected queryset to CSV."""
     fieldnames = [field.name for field in queryset.model._meta.fields]
@@ -27,7 +28,6 @@ export_to_csv.short_description = "Export selected to CSV"
 
 
 
-
 class ProductVariantInline(admin.TabularInline):
     model=ProductVariant
     extra=2
@@ -36,7 +36,7 @@ class ProductVariantInline(admin.TabularInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display=['product_name','brand','price']
+    list_display=['product_name','brand']
     inlines=[ProductVariantInline]
     actions=[export_to_csv]
     
@@ -71,8 +71,8 @@ class ProductAdmin(admin.ModelAdmin):
 admin_site.register(Product,ProductAdmin)
 
 class ProductVariantAdmin(admin.ModelAdmin):
-    list_display=['product','desc','color','size','quantity']
-    # list_filter = ('product__brand',)
+    list_display=['product','desc','color','size','quantity','price']
+    list_filter = ('product__category',)
     actions=[export_to_csv]
 
     def get_queryset(self,request):

@@ -1,17 +1,25 @@
 from django.contrib import admin
 from ecomm.admin import admin_site
-from .models import Brand,CustomUser
+from .models import Brand,CustomUser,Category
 from django.contrib.auth.admin import UserAdmin
 
 
 
+class CategoryInline(admin.TabularInline):
+    model=Category
+    extra=2
 
 class CustomUserAdmin(UserAdmin):
     # model = CustomUser
-
+    
     list_display = ('username', 'email', 'brand', 'is_staff', 'is_superuser')
     readonly_fields=['username','email','last_login','date_joined']
     # exclude=['user_permissions']
+
+    def get_readonly_fields(self, request, obj = None):
+        if obj:
+            return ['username','email','last_login','date_joined']
+        return ['last_login','date_joined']
 
     def get_fieldsets(self, request, obj=None):
         fieldsets = super().get_fieldsets(request, obj)
@@ -34,7 +42,7 @@ class CustomUserAdmin(UserAdmin):
                 new_fieldsets.append((name, {**opts, 'fields': fields}))
             return new_fieldsets
 
-        return modified
+        return fieldsets
 
     add_fieldsets = (
         (None, {
@@ -43,7 +51,24 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
 
-admin_site.register(Brand)
 admin_site.register(CustomUser, CustomUserAdmin)
 
-# admin_site.register(CustomUser)
+class BrandAdmin(admin.ModelAdmin):
+    inlines=[CategoryInline]
+
+admin_site.register(Brand,BrandAdmin)
+
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display=['brand','name']
+
+    def get_queryset(self,request):
+        qs=super().get_queryset(request)
+        
+
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(brand=request.user.brand)
+
+admin_site.register(Category,CategoryAdmin)
